@@ -5,7 +5,7 @@
     <meta content="width=device-width,initial-scale=1" name="viewport">
     <meta content="no-referrer" name="referrer">
     <link href="data:image/x-icon;," rel="icon">
-    <title>github.com/dbghelp - Fixed & Optimized IPTV Player</title>
+    <title>github.com/dbghelp - Shaka UI Enhanced IPTV Player</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.16.3/controls.min.css" rel="stylesheet">
     <link href="https://dbghelp.github.io/xml-epg.css" rel="stylesheet">
     <style>
@@ -15,8 +15,9 @@
         #epg-button { display: none; width: 100%; padding: 10px; margin-bottom: 10px; background-color: #61dafb; color: #000; border: none; border-radius: 5px; font-size: 1em; cursor: pointer; box-shadow: 0 4px 8px rgb(0 0 0 / .3); }
         #fetch-button { width: 100%; padding: 10px; margin-bottom: 10px; background-color: #61dafb; color: #000; border: none; border-radius: 5px; font-size: 1em; cursor: pointer; box-shadow: 0 4px 8px rgb(0 0 0 / .3); }
         #fetch-button:hover, #epg-button:hover { background-color: #4fa3c4; }
-        #video-container { flex: 1; display: flex; flex-direction: column; z-index: 2; position: relative; }
-        #video { flex: 1; width: 100%; height: 100%; background-color: #000; }
+        #video-container { flex: 1; display: flex; flex-direction: column; z-index: 2; position: relative; background-color: #000; }
+        #shaka-container { width: 100%; height: 100%; }
+        #video { width: 100%; height: 100%; background-color: #000; }
         #loading-indicator { display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #fff; z-index: 10; text-align: center; }
         #video-list { list-style: none; padding: 0; margin: 0; }
         #video-list li { padding: 10px; margin: 5px 0; border-radius: 5px; cursor: pointer; transition: background-color .3s ease, transform .2s ease; display: flex; align-items: center; }
@@ -31,6 +32,30 @@
         #upload-button { width: 10%; padding: 10px; margin-bottom: 10px; margin-left: 5px; background-color: #61dafb; color: #000; border: none; border-radius: 5px; font-size: 1em; cursor: pointer; box-shadow: 0 4px 8px rgb(0 0 0 / .3); }
         #upload-button:hover { background-color: #4fa3c4; }
         .debounce-input { transition: all 0.1s ease; }
+
+        /* Shaka UI Custom Styles from Example */
+        div a img { visibility: hidden; }
+        .shaka-seek-bar-container .shaka-seek-bar,
+        .shaka-volume-bar-container .shaka-volume-bar {
+            background: linear-gradient(to right, #051937, #00205b, #00247e, #22229f, #510dbc);
+        }
+        .shaka-video-container .material-icons-round { color: #00abe2; }
+        .shaka-spinner-path {
+            stroke-dasharray: 1, 2000;
+            stroke-dashoffset: 0;
+            animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
+            stroke-linecap: round;
+        }
+        @keyframes color {
+            0%, 100% { stroke: #d62d20; }
+            40% { stroke: #0057e7; }
+            66% { stroke: #008744; }
+            80%, 90% { stroke: #ffa700; }
+        }
+        @keyframes dash {
+            0% { stroke-dashoffset: 1000; }
+            100% { stroke-dashoffset: 0; }
+        }
     </style>
 </head>
 <body>
@@ -46,9 +71,11 @@
         <ul id="video-list"></ul>
     </div>
     <div id="video-container">
-        <video autoplay muted controls id="video"></video>
+        <div id="shaka-container" data-shaka-player-container>
+            <video autoplay muted data-shaka-player id="video" style="width:100%; height:100%;"></video>
+        </div>
         <div id="loading-indicator">
-            <div>Loading stream... (Fixed for smooth playback)</div>
+            <div>Loading stream... (Shaka UI Enhanced)</div>
             <div id="error-msg" style="color: #ff6b6b; font-size: 0.9em;"></div>
         </div>
     </div>
@@ -56,6 +83,7 @@
     <div id="epg-container"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.16.3/shaka-player.compiled.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.16.3/shaka-player.ui.min.js" crossorigin="anonymous"></script>
     <script src="https://dbghelp.github.io/M3U8Interpreter.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.0.4/pako.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
@@ -69,6 +97,7 @@
         var errorMsg = document.getElementById('error-msg');
         var hideOverlayTimeout = null;
         var player;
+        var ui;
         var channels;
         var lastActiveChannel;
 
@@ -94,41 +123,78 @@
             const fileInput = document.getElementById('file-input');
             let selectedFileContent = null;
 
-            // Init Shaka Player with optimizations (tetap, tapi aman)
-            player = new shaka.Player(videoElement);
-            shaka.polyfill.installAll();
-            player.configure({
-                streaming: {
-                    bufferBehind: 15, // Rendah untuk start cepat
-                    rebufferingGoal: 5,
-                    lowLatencyMode: true,
-                    bufferingGoal: 20,
-                    retryParameters: {
-                        maxAttempts: 3,
-                        baseDelay: 1000,
-                        backoffFactor: 2,
-                        fuzzFactor: 0.5
+            // Shaka UI Init (from example)
+            async function initShaka() {
+                const video = document.getElementById('video');
+                ui = video['ui'];
+                const controls = ui.getControls();
+                player = controls.getPlayer();
+                window.player = player; // For console tweaks
+                window.ui = ui;
+
+                // Config like example: ABR restrictions for quality control
+                player.configure({
+                    drm: {
+                        clearKeys: {} // Placeholder, will be set per channel
+                    },
+                    abr: {
+                        defaultBandwidthEstimate: 16888, // Low estimate for quick start
+                        enabled: true,
+                        restrictions: {
+                            minHeight: 359, // Min quality 360p
+                            maxHeight: 720  // Max 720p (tweak via console if needed)
+                        }
+                    },
+                    streaming: {
+                        bufferBehind: 15,
+                        rebufferingGoal: 5,
+                        lowLatencyMode: true,
+                        bufferingGoal: 20,
+                        retryParameters: {
+                            maxAttempts: 3,
+                            baseDelay: 1000,
+                            backoffFactor: 2,
+                            fuzzFactor: 0.5
+                        }
                     }
-                },
-                abr: {
-                    enabled: true,
-                    defaultBandwidthEstimate: 1000000, // Estimasi rendah awal
-                    switchInterval: 2
-                }
-            });
-            player.addEventListener('error', (event) => {
-                console.error('Shaka error:', event.detail);
-                errorMsg.textContent = 'Stream error: ' + event.detail.message + '. Retrying...';
-                if (event.detail.code === shaka.util.Error.Severity.RECOVERABLE) {
+                });
+
+                player.addEventListener('error', onPlayerErrorEvent);
+                controls.addEventListener('error', onUIErrorEvent);
+
+                shaka.polyfill.installAll();
+                console.log('Shaka UI initialized!');
+            }
+
+            function onPlayerErrorEvent(event) {
+                onPlayerError(event.detail);
+            }
+            function onPlayerError(error) {
+                console.error('Error code', error.code, 'object', error);
+                errorMsg.textContent = 'Stream error: ' + error.message + '. Retrying...';
+                if (error.severity === shaka.util.Error.Severity.RECOVERABLE) {
                     setTimeout(() => player.retryStreaming(), 2000);
                 }
                 loadingIndicator.style.display = 'none';
-            });
-            player.addEventListener('loading', () => {
+            }
+            function onUIErrorEvent(event) {
+                onPlayerError(event.detail);
+            }
+            function initFailed() {
+                console.error('Unable to load Shaka UI!');
+                showToast('Shaka UI load failed – fallback to basic player');
+            }
+
+            // Load Shaka UI
+            document.addEventListener('shaka-ui-loaded', initShaka);
+            document.addEventListener('shaka-ui-load-failed', initFailed);
+
+            // Event listeners for loading indicator
+            player?.addEventListener('loading', () => {
                 loadingIndicator.style.display = 'block';
                 errorMsg.textContent = '';
             });
-            player.addEventListener('loaded', () => loadingIndicator.style.display = 'none');
+            player?.addEventListener('loaded', () => loadingIndicator.style.display = 'none');
 
             var extracted = extractAppendedURL();
             if (extracted) {
@@ -169,7 +235,7 @@
 
             async function setPlaylistFromUrl(url) {
                 try {
-                    console.log('Fetching playlist from:', url); // Debug
+                    console.log('Fetching playlist from:', url);
                     const response = await fetch(url);
                     if (response.ok) {
                         const text = await response.text();
@@ -190,27 +256,26 @@
 
             async function parseAndSetPlaylist(content) {
                 try {
-                    console.log('Parsing playlist...'); // Debug
+                    console.log('Parsing playlist...');
                     const m3u8Interpreter = new M3U8Interpreter(content);
                     m3u8Interpreter.parse();
                     channels = m3u8Interpreter.getChannels();
                     const urls = m3u8Interpreter.getUrlTvg();
                     xmlepg.setPlaylistChannels(channels);
 
-                    // EPG: Kembali ke asli, tanpa cache custom
                     if (urls && urls.length > 0) {
-                        console.log('Loading EPG from:', urls); // Debug
+                        console.log('Loading EPG from:', urls);
                         await xmlepg.load(urls).then(() => {
                             xmlepg.displayAllPrograms('epg-container', 'xmlepg');
                         }).catch(err => {
-                            console.warn('EPG load failed, but playlist ok:', err); // Non-fatal
+                            console.warn('EPG load failed, but playlist ok:', err);
                         });
                         document.getElementById('epg-button').style.display = 'block';
                     }
 
                     updatePlaylist(channels);
                     document.getElementById('search-input').style.display = 'block';
-                    console.log('Playlist loaded: ' + channels.length + ' channels'); // Debug
+                    console.log('Playlist loaded: ' + channels.length + ' channels');
                     showToast('Playlist loaded: ' + channels.length + ' channels');
                 } catch (error) {
                     console.error('Parse error:', error);
@@ -219,7 +284,12 @@
             }
 
             window.loadVideo = async function(manifestUrl, licenseKey) {
-                console.log('Loading video:', manifestUrl); // Debug
+                if (!player) {
+                    console.warn('Player not ready, retrying...');
+                    setTimeout(() => loadVideo(manifestUrl, licenseKey), 500);
+                    return;
+                }
+                console.log('Loading video:', manifestUrl);
                 if (licenseKey != null && !Array.isArray(licenseKey)) {
                     licenseKey = JSON.parse(decodeURIComponent(licenseKey));
                 }
@@ -229,21 +299,21 @@
                     });
                 }
 
-                // Coba load dengan Shaka (async & safe)
+                loadingIndicator.style.display = 'block';
                 try {
                     await player.load(manifestUrl);
-                    await videoElement.play().catch(e => console.warn('Autoplay blocked:', e)); // Mute bantu bypass
+                    console.log('The video has now been loaded!');
+                    await videoElement.play().catch(e => console.warn('Autoplay blocked:', e));
                 } catch (error) {
                     console.error('Shaka load failed:', error);
-                    errorMsg.textContent = 'Fallback to native player...';
-                    // Fallback sederhana ke native video (hilangkan HLS.js untuk hindari konflik)
+                    errorMsg.textContent = 'Fallback to native...';
                     videoElement.src = manifestUrl;
                     await videoElement.play().catch(e => console.warn('Native play failed:', e));
                 }
             };
 
             function updatePlaylist(channelsList) {
-                console.log('Updating playlist UI...'); // Debug
+                console.log('Updating playlist UI...');
                 videoList.innerHTML = '';
                 channelsList.forEach(channel => {
                     const listItem = document.createElement('li');
@@ -253,7 +323,6 @@
                     `;
                     const imgElement = listItem.querySelector('img');
 
-                    // EPG hover: Kembali ke asli
                     imgElement.onmouseenter = () => {
                         try {
                             xmlepg.displayPrograms('overlay', channel.tvgId);
