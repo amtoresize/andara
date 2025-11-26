@@ -5,7 +5,7 @@
     <meta content="width=device-width,initial-scale=1" name="viewport">
     <meta content="no-referrer" name="referrer">
     <link href="data:image/x-icon;," rel="icon">
-    <title>github.com/dbghelp - Optimized IPTV Player</title>
+    <title>github.com/dbghelp - Fixed & Optimized IPTV Player</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.16.3/controls.min.css" rel="stylesheet">
     <link href="https://dbghelp.github.io/xml-epg.css" rel="stylesheet">
     <style>
@@ -15,9 +15,9 @@
         #epg-button { display: none; width: 100%; padding: 10px; margin-bottom: 10px; background-color: #61dafb; color: #000; border: none; border-radius: 5px; font-size: 1em; cursor: pointer; box-shadow: 0 4px 8px rgb(0 0 0 / .3); }
         #fetch-button { width: 100%; padding: 10px; margin-bottom: 10px; background-color: #61dafb; color: #000; border: none; border-radius: 5px; font-size: 1em; cursor: pointer; box-shadow: 0 4px 8px rgb(0 0 0 / .3); }
         #fetch-button:hover, #epg-button:hover { background-color: #4fa3c4; }
-        #video-container { flex: 1; display: flex; flex-direction: column; z-index: 2; }
+        #video-container { flex: 1; display: flex; flex-direction: column; z-index: 2; position: relative; }
         #video { flex: 1; width: 100%; height: 100%; background-color: #000; }
-        #loading-indicator { display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #fff; z-index: 10; }
+        #loading-indicator { display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #fff; z-index: 10; text-align: center; }
         #video-list { list-style: none; padding: 0; margin: 0; }
         #video-list li { padding: 10px; margin: 5px 0; border-radius: 5px; cursor: pointer; transition: background-color .3s ease, transform .2s ease; display: flex; align-items: center; }
         #video-list li:hover { background-color: #61dafb; transform: scale(1.05); }
@@ -47,13 +47,15 @@
     </div>
     <div id="video-container">
         <video autoplay muted controls id="video"></video>
-        <div id="loading-indicator">Loading stream... (Optimized for low latency)</div>
+        <div id="loading-indicator">
+            <div>Loading stream... (Fixed for smooth playback)</div>
+            <div id="error-msg" style="color: #ff6b6b; font-size: 0.9em;"></div>
+        </div>
     </div>
     <div id="overlay"></div>
     <div id="epg-container"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.16.3/shaka-player.compiled.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script> <!-- Fallback for HLS -->
     <script src="https://dbghelp.github.io/M3U8Interpreter.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.0.4/pako.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
@@ -64,13 +66,13 @@
         var videoContainer = document.getElementById('video-container');
         var epgContainer = document.getElementById('epg-container');
         var loadingIndicator = document.getElementById('loading-indicator');
+        var errorMsg = document.getElementById('error-msg');
         var hideOverlayTimeout = null;
-        var channelsCache = []; // Cache for EPG programs
         var player;
-        var hlsPlayer; // Fallback HLS.js instance
+        var channels;
         var lastActiveChannel;
 
-        // Optimized overlay events
+        // Optimized overlay events (asli)
         overlay.addEventListener('mouseenter', () => {
             if (hideOverlayTimeout) clearTimeout(hideOverlayTimeout);
             overlay.style.display = 'flex';
@@ -90,18 +92,16 @@
             const urlInput = document.getElementById('url-input');
             const fetchButton = document.getElementById('fetch-button');
             const fileInput = document.getElementById('file-input');
-            const uploadButton = document.getElementById('upload-button');
             let selectedFileContent = null;
-            let channels = [];
 
-            // Init Shaka Player with optimizations
+            // Init Shaka Player with optimizations (tetap, tapi aman)
             player = new shaka.Player(videoElement);
             shaka.polyfill.installAll();
             player.configure({
                 streaming: {
-                    bufferBehind: 15, // Lower buffer for faster start
-                    rebufferingGoal: 5, // Aggressive rebuffering
-                    lowLatencyMode: true, // Enable low-latency for HLS
+                    bufferBehind: 15, // Rendah untuk start cepat
+                    rebufferingGoal: 5,
+                    lowLatencyMode: true,
                     bufferingGoal: 20,
                     retryParameters: {
                         maxAttempts: 3,
@@ -112,26 +112,23 @@
                 },
                 abr: {
                     enabled: true,
-                    defaultBandwidthEstimate: 1000000, // Start with lower estimate for quick init
-                    switchInterval: 2 // Faster quality switches
-                },
-                drm: { clearKeys: {} } // Placeholder
+                    defaultBandwidthEstimate: 1000000, // Estimasi rendah awal
+                    switchInterval: 2
+                }
             });
-            player.addEventListener('error', onPlayerError);
-            player.addEventListener('loading', () => loadingIndicator.style.display = 'block');
+            player.addEventListener('error', (event) => {
+                console.error('Shaka error:', event.detail);
+                errorMsg.textContent = 'Stream error: ' + event.detail.message + '. Retrying...';
+                if (event.detail.code === shaka.util.Error.Severity.RECOVERABLE) {
+                    setTimeout(() => player.retryStreaming(), 2000);
+                }
+                loadingIndicator.style.display = 'none';
+            });
+            player.addEventListener('loading', () => {
+                loadingIndicator.style.display = 'block';
+                errorMsg.textContent = '';
+            });
             player.addEventListener('loaded', () => loadingIndicator.style.display = 'none');
-
-            // Fallback HLS.js init
-            if (Hls.isSupported()) {
-                hlsPlayer = new Hls({
-                    lowLatencyMode: true,
-                    backBufferLength: 10,
-                    maxBufferLength: 20,
-                    maxMaxBufferLength: 30,
-                    startLevel: -1 // Auto start lowest quality
-                });
-                hlsPlayer.on(Hls.Events.ERROR, onHlsError);
-            }
 
             var extracted = extractAppendedURL();
             if (extracted) {
@@ -160,27 +157,30 @@
                 }
             });
 
-            // Debounced search
+            // Debounced search (tetap)
             let searchTimeout;
             searchInput.addEventListener('input', (event) => {
                 clearTimeout(searchTimeout);
                 searchTimeout = setTimeout(() => {
                     const searchTerm = event.target.value;
                     filterPlaylist(searchTerm);
-                }, 300); // Debounce 300ms
+                }, 300);
             });
 
             async function setPlaylistFromUrl(url) {
                 try {
+                    console.log('Fetching playlist from:', url); // Debug
                     const response = await fetch(url);
                     if (response.ok) {
                         const text = await response.text();
                         parseAndSetPlaylist(text);
                     } else {
                         console.error('Failed to fetch M3U8 playlist.');
+                        showToast('Gagal fetch playlist: ' + response.status);
                     }
                 } catch (error) {
                     console.error('Error fetching M3U8 playlist:', error);
+                    showToast('Error: ' + error.message);
                 }
             }
 
@@ -189,24 +189,37 @@
             }
 
             async function parseAndSetPlaylist(content) {
-                const m3u8Interpreter = new M3U8Interpreter(content);
-                m3u8Interpreter.parse();
-                channels = m3u8Interpreter.getChannels();
-                const urls = m3u8Interpreter.getUrlTvg();
-                xmlepg.setPlaylistChannels(channels);
-                // Cache EPG for faster access
-                await xmlepg.load(urls).then(() => {
-                    channels.forEach(ch => channelsCache[ch.tvgId] = xmlepg.getProgramsByChannel(ch.tvgId));
-                    xmlepg.displayAllPrograms('epg-container', 'xmlepg');
-                });
-                if (urls != null && urls.length !== 0) {
-                    document.getElementById('epg-button').style.display = 'block';
+                try {
+                    console.log('Parsing playlist...'); // Debug
+                    const m3u8Interpreter = new M3U8Interpreter(content);
+                    m3u8Interpreter.parse();
+                    channels = m3u8Interpreter.getChannels();
+                    const urls = m3u8Interpreter.getUrlTvg();
+                    xmlepg.setPlaylistChannels(channels);
+
+                    // EPG: Kembali ke asli, tanpa cache custom
+                    if (urls && urls.length > 0) {
+                        console.log('Loading EPG from:', urls); // Debug
+                        await xmlepg.load(urls).then(() => {
+                            xmlepg.displayAllPrograms('epg-container', 'xmlepg');
+                        }).catch(err => {
+                            console.warn('EPG load failed, but playlist ok:', err); // Non-fatal
+                        });
+                        document.getElementById('epg-button').style.display = 'block';
+                    }
+
+                    updatePlaylist(channels);
+                    document.getElementById('search-input').style.display = 'block';
+                    console.log('Playlist loaded: ' + channels.length + ' channels'); // Debug
+                    showToast('Playlist loaded: ' + channels.length + ' channels');
+                } catch (error) {
+                    console.error('Parse error:', error);
+                    showToast('Gagal parse playlist: ' + error.message);
                 }
-                updatePlaylist(channels);
-                document.getElementById('search-input').style.display = 'block';
             }
 
             window.loadVideo = async function(manifestUrl, licenseKey) {
+                console.log('Loading video:', manifestUrl); // Debug
                 if (licenseKey != null && !Array.isArray(licenseKey)) {
                     licenseKey = JSON.parse(decodeURIComponent(licenseKey));
                 }
@@ -216,72 +229,42 @@
                     });
                 }
 
-                loadingIndicator.style.display = 'block';
-                // Prefetch manifest metadata
-                try {
-                    await fetch(manifestUrl, { method: 'HEAD' });
-                } catch (e) { /* Ignore prefetch errors */ }
-
-                // Try Shaka first
+                // Coba load dengan Shaka (async & safe)
                 try {
                     await player.load(manifestUrl);
-                    videoElement.play().catch(() => {}); // Ignore play promise for now
-                    return;
-                } catch (e) {
-                    console.warn('Shaka failed, falling back to HLS.js');
-                    fallbackToHls(manifestUrl);
+                    await videoElement.play().catch(e => console.warn('Autoplay blocked:', e)); // Mute bantu bypass
+                } catch (error) {
+                    console.error('Shaka load failed:', error);
+                    errorMsg.textContent = 'Fallback to native player...';
+                    // Fallback sederhana ke native video (hilangkan HLS.js untuk hindari konflik)
+                    videoElement.src = manifestUrl;
+                    await videoElement.play().catch(e => console.warn('Native play failed:', e));
                 }
             };
 
-            function fallbackToHls(url) {
-                if (hlsPlayer) {
-                    hlsPlayer.loadSource(url);
-                    hlsPlayer.attachMedia(videoElement);
-                    hlsPlayer.on(Hls.Events.MANIFEST_PARSED, () => {
-                        videoElement.play().catch(() => {});
-                        loadingIndicator.style.display = 'none';
-                    });
-                } else {
-                    videoElement.src = url;
-                    videoElement.play().catch(() => {});
-                    loadingIndicator.style.display = 'none';
-                }
-            }
-
-            function onPlayerError(event) {
-                console.error('Shaka error:', event.detail);
-                if (event.detail.code === shaka.util.Error.Severity.RECOVERABLE) {
-                    // Auto retry
-                    setTimeout(() => player.retryStreaming(), 2000);
-                }
-                loadingIndicator.style.display = 'none';
-            }
-
-            function onHlsError(event, data) {
-                console.error('HLS error:', data);
-                loadingIndicator.style.display = 'none';
-            }
-
             function updatePlaylist(channelsList) {
+                console.log('Updating playlist UI...'); // Debug
                 videoList.innerHTML = '';
                 channelsList.forEach(channel => {
                     const listItem = document.createElement('li');
-                    const img = document.createElement('img');
-                    img.src = channel.tvgLogo || ''; // Lazy load
-                    img.alt = channel.channelName + ' logo';
-                    img.loading = 'lazy';
-                    listItem.appendChild(img);
-                    listItem.innerHTML += `<span class="video-title">${channel.channelName}</span>`;
+                    listItem.innerHTML = `
+                        <img src="${channel.tvgLogo}" alt="${channel.channelName} logo" loading="lazy">
+                        <span class="video-title">${channel.channelName}</span>
+                    `;
+                    const imgElement = listItem.querySelector('img');
 
-                    // Optimized EPG hover with cache
-                    img.onmouseenter = () => {
-                        const programs = channelsCache[channel.tvgId] || [];
-                        xmlepg.displayPrograms('overlay', channel.tvgId, programs); // Pass cached
-                        overlay.style.display = 'flex';
-                        videoContainer.style.display = 'none';
-                        if (hideOverlayTimeout) clearTimeout(hideOverlayTimeout);
+                    // EPG hover: Kembali ke asli
+                    imgElement.onmouseenter = () => {
+                        try {
+                            xmlepg.displayPrograms('overlay', channel.tvgId);
+                            overlay.style.display = 'flex';
+                            videoContainer.style.display = 'none';
+                            if (hideOverlayTimeout) clearTimeout(hideOverlayTimeout);
+                        } catch (e) {
+                            console.warn('EPG hover failed:', e);
+                        }
                     };
-                    img.onmouseleave = () => {
+                    imgElement.onmouseleave = () => {
                         hideOverlayTimeout = setTimeout(() => {
                             overlay.style.display = 'none';
                             videoContainer.style.display = 'flex';
@@ -290,10 +273,9 @@
 
                     listItem.onclick = () => {
                         loadVideo(channel.manifestUrl, channel.licenseKey);
-                        // Remove active class from all
                         Array.from(videoList.children).forEach(li => li.classList.remove('active'));
                         listItem.classList.add('active');
-                        lastActiveChannel = channel;
+                        lastActiveChannel = listItem.innerHTML;
                     };
 
                     videoList.appendChild(listItem);
@@ -301,8 +283,8 @@
             }
 
             function filterPlaylist(searchTerm) {
-                const filtered = channels.filter(ch => ch.channelName.toLowerCase().includes(searchTerm.toLowerCase()));
-                updatePlaylist(filtered);
+                const filteredChannels = channels.filter(channel => channel.channelName.toLowerCase().includes(searchTerm.toLowerCase()));
+                updatePlaylist(filteredChannels);
             }
         });
 
