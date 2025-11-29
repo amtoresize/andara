@@ -1,73 +1,71 @@
-#EXTM3U
-
 #EXTINF:-1 tvg-id="SkySports1" tvg-name="Sky Sports NZ 1 FHD" tvg-logo="https://8upload.com/image/67dcf3f71dbaa/sky-sport-1-nz.png?raw=1" group-title="Sky Sports NZ",Sky Sports NZ 1 FHD
 #KODIPROP:inputstreamaddon=inputstream.adaptive
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=aefc2c8d1c8840f1b6981f856c9269ba:cf8ea114c45b4d6596b2748258ab74d6
-https://dice-live-oc.akamaized.net/hdntl=exp=1764060272~acl=%2f*~id=00dbb165-9cac-4d25-beed-af0ac8f76729~data=hdntl,dWlkPTU3MjQwMXxkY2Uuc2t5bnomaXA9NDcuNzIuMTM1LjE1MCZleHA9MTc2NDA2MDMwMSZlaWQ9MjE5MDI2JmNpZD1kY2Uuc2t5bnomb2lkPTMxOCZ0eXBlPUxJVkU~hmac=9d10b628966c46ba64563cc69f506421d0a6abbc1311611ecb2a6cb29696d4e0/dash/live/2093662/219026-311262/manifest-d.mpd
+https://dice-live-oc.akamaized.net/hdntl=exp=1764502342~acl=%2f*~id=8933d1a9-9f2b-4cb3-8628-de04c32fdee1~data=hdntl,dWlkPTU3MjQwMXxkY2Uuc2t5bnomaXA9MTI0LjI0OC4xNDIuMTMmZXhwPTE3NjQ1MDIzNzImZWlkPTIxOTAyNiZjaWQ9ZGNlLnNreW56Jm9pZD0zMTgmdHlwZT1MSVZF~hmac=7fb6e39f5893af71d2368b71d3bb33aee49daf71cbc60e03df699b225816be5d/dash/live/2093682/219026-311906/manifest-d.mpd
 
 #EXTINF:-1 tvg-id="SkySports2" tvg-name="Sky Sports NZ 2 FHD" tvg-logo="https://8upload.com/image/67dcf3f712c8a/sky-sport-2-nz.png?raw=1" group-title="Sky Sports NZ",Sky Sports NZ 2 FHD
 #KODIPROP:inputstreamaddon=inputstream.adaptive
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=708a98b352bd4418a73a028edd84da8f:b1fa5c2bca4c4b57b924b748564532cb
-https://dice-live-oc.akamaized.net/hdntl=exp=1764060281~acl=%2f*~id=21069202-e420-427d-8249-750509572811~data=hdntl,dWlkPTU3MjQwMXxkY2Uuc2t5bnomaXA9NDcuNzIuMTM1LjE1MCZleHA9MTc2NDA2MDMxMSZlaWQ9MjE5MDI3JmNpZD1kY2Uuc2t5bnomb2lkPTMxOCZ0eXBlPUxJVkU~hmac=13e01e65ff8cab610f27a97507a72652d50a115949851a59603acff428a051db/dash/live/2093663/219027-311263/manifest-d.mpd
+https://dice-live-oc.akamaized.net/hdntl=exp=1764502350~acl=%2f*~id=54b3be0d-cea1-443a-960c-2b1ac702564f~data=hdntl,dWlkPTU3MjQwMXxkY2Uuc2t5bnomaXA9MTI0LjI0OC4xNDIuMTMmZXhwPTE3NjQ1MDIzODAmZWlkPTIxOTAyNyZjaWQ9ZGNlLnNreW56Jm9pZD0zMTgmdHlwZT1MSVZF~hmac=4870d2333d0ab72f046a23a4394163b13f9dc355df360e802dc741f475e066f2/dash/live/2093681/219027-311905/manifest-d.mpd
 
 #EXTINF:-1 tvg-id="SkySports3" tvg-name="Sky Sports NZ 3 FHD" tvg-logo="https://8upload.com/image/67dcf3f707147/sky-sport-3-nz.png?raw=1" group-title="Sky Sports NZ",Sky Sports NZ 3 FHD
 #KODIPROP:inputstreamaddon=inputstream.adaptive
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=2e2636daa74141b68cc14882ea3ff82b:0961f48287324adbb4b7ff3c9d82b3c9
-https://dice-live-oc.akamaized.net/hdntl=exp=1764060291~acl=%2f*~id=f62dde41-1552-44ff-ad66-d9218b88ac61~data=hdntl,dWlkPTU3MjQwMXxkY2Uuc2t5bnomaXA9NDcuNzIuMTM1LjE1MCZleHA9MTc2NDA2MDMyMSZlaWQ9MjE5MDI4JmNpZD1kY2Uuc2t5bnomb2lkPTMxOCZ0eXBlPUxJVkU~hmac=282a41f83aa0c8a59c0157133b0a90ac69acbdaf91d43f9d01b54476f2ada015/dash/live/2093664/219028-311264/manifest-d.mpd
+https://dice-live-oc.akamaized.net/hdntl=exp=1764502357~acl=%2f*~id=5e57049e-054a-4f51-943b-4c602d734629~data=hdntl,dWlkPTU3MjQwMXxkY2Uuc2t5bnomaXA9MTI0LjI0OC4xNDIuMTMmZXhwPTE3NjQ1MDIzODcmZWlkPTIxOTAyOCZjaWQ9ZGNlLnNreW56Jm9pZD0zMTgmdHlwZT1MSVZF~hmac=8dce8fcbef7a6a49cdd14910f49a8a10ea64980f2aebd47a659e6aa1052b2a5b/dash/live/2093680/219028-311904/manifest-d.mpd
 
 #EXTINF:-1 tvg-id="SkySports4" tvg-name="Sky Sports NZ 4 FHD" tvg-logo="https://8upload.com/image/67dcf3f6edfdd/sky-sport-4-nz.png?raw=1" group-title="Sky Sports NZ",Sky Sports NZ 4 FHD
 #KODIPROP:inputstreamaddon=inputstream.adaptive
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=278b8746b7c7410e901af0aa3774f037:15e1142d647b474ebbd49e41efa2a9d7
-https://dice-live-oc.akamaized.net/hdntl=exp=1764060301~acl=%2f*~id=40bae9e5-a62b-4562-aeb6-fc62403f37c1~data=hdntl,dWlkPTU3MjQwMXxkY2Uuc2t5bnomaXA9NDcuNzIuMTM1LjE1MCZleHA9MTc2NDA2MDMzMSZlaWQ9MjE5MDI5JmNpZD1kY2Uuc2t5bnomb2lkPTMxOCZ0eXBlPUxJVkU~hmac=0506503558d9984d70fe3c48677b16b4c7be8816d3f0f175fef10a7c15d0c8f7/dash/live/2093660/219029-311256/manifest-d.mpd
+https://dice-live-oc.akamaized.net/hdntl=exp=1764502365~acl=%2f*~id=a6cb8a8e-19eb-41bf-837a-06661b861087~data=hdntl,dWlkPTU3MjQwMXxkY2Uuc2t5bnomaXA9MTI0LjI0OC4xNDIuMTMmZXhwPTE3NjQ1MDIzOTUmZWlkPTIxOTAyOSZjaWQ9ZGNlLnNreW56Jm9pZD0zMTgmdHlwZT1MSVZF~hmac=d7fc58852691e0c1f724b29d7e4ad7e9f7dcf8e77a76edbe21b21bde4a7a9846/dash/live/2093679/219029-311903/manifest-d.mpd
 
 #EXTINF:-1 tvg-id="SkySports5" tvg-name="Sky Sports NZ 5 FHD" tvg-logo="https://8upload.com/image/67dcf3f6de1e0/sky-sport-5-nz.png?raw=1" group-title="Sky Sports NZ",Sky Sports NZ 5 FHD
 #KODIPROP:inputstreamaddon=inputstream.adaptive
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=fdd24dd2c6c14126ad7c1ad1066b03dd:08289c6d57d54e8d8dca55e1862afb82
-https://dice-live-oc.akamaized.net/hdntl=exp=1764060311~acl=%2f*~id=92d2668a-dd98-4dc2-9b80-95dc52638803~data=hdntl,dWlkPTU3MjQwMXxkY2Uuc2t5bnomaXA9NDcuNzIuMTM1LjE1MCZleHA9MTc2NDA2MDM0MSZlaWQ9MjE5MDMyJmNpZD1kY2Uuc2t5bnomb2lkPTMxOCZ0eXBlPUxJVkU~hmac=4bbc66009d7533deb084313e959cee623048d545a66b9aa5bd02b358f6b4c085/dash/live/2093665/219032-311265/manifest-d.mpd
+https://dice-live-oc.akamaized.net/hdntl=exp=1764502372~acl=%2f*~id=c82c4485-1296-49e3-b1b7-150023d8e614~data=hdntl,dWlkPTU3MjQwMXxkY2Uuc2t5bnomaXA9MTI0LjI0OC4xNDIuMTMmZXhwPTE3NjQ1MDI0MDImZWlkPTIxOTAzMiZjaWQ9ZGNlLnNreW56Jm9pZD0zMTgmdHlwZT1MSVZF~hmac=04af666a36e389430d9f39b74cd41ccf8a52081f1c98b233a307f14e6ab1ca28/dash/live/2093678/219032-311902/manifest-d.mpd
 
 #EXTINF:-1 tvg-id="SkySports6" tvg-name="Sky Sports NZ 6 FHD" tvg-logo="https://8upload.com/image/67dcf3f6ced05/sky-sport-6-nz.png?raw=1" group-title="Sky Sports NZ",Sky Sports NZ 6 FHD
 #KODIPROP:inputstreamaddon=inputstream.adaptive
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=e87521b3dfa44ed9ba004012dcb89172:bba9734a9d724531bbab7ef5d64ca1f8
-https://dice-live-oc.akamaized.net/hdntl=exp=1764060320~acl=%2f*~id=1172c13a-06ef-4a69-b7cf-105143ac7912~data=hdntl,dWlkPTU3MjQwMXxkY2Uuc2t5bnomaXA9NDcuNzIuMTM1LjE1MCZleHA9MTc2NDA2MDM1MCZlaWQ9MjE5MDMzJmNpZD1kY2Uuc2t5bnomb2lkPTMxOCZ0eXBlPUxJVkU~hmac=f653262670653095c77e94cf0edf92f016819f07593478cee347c22e0c5138e6/dash/live/2093661/219033-311257/manifest-d.mpd
+https://dice-live-oc.akamaized.net/hdntl=exp=1764502381~acl=%2f*~id=686ae5bc-a4ff-43f1-92b0-784f5daa889b~data=hdntl,dWlkPTU3MjQwMXxkY2Uuc2t5bnomaXA9MTI0LjI0OC4xNDIuMTMmZXhwPTE3NjQ1MDI0MTEmZWlkPTIxOTAzMyZjaWQ9ZGNlLnNreW56Jm9pZD0zMTgmdHlwZT1MSVZF~hmac=989e10a1b7463ca2e8b7c325b4ab7fd92708f5c9275b93ce983e4ee7381d97ad/dash/live/2093677/219033-311901/manifest-d.mpd
 
 #EXTINF:-1 tvg-id="SkySports7" tvg-name="Sky Sports NZ 7 FHD" tvg-logo="https://8upload.com/image/67dcf3f6c3320/sky-sport-7-nz.png?raw=1" group-title="Sky Sports NZ",Sky Sports NZ 7 FHD
 #KODIPROP:inputstreamaddon=inputstream.adaptive
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=af95024eda94455e922b90a39a3af93e:852e715ef4064b05b8e1cdee285648b5
-https://dice-live-oc.akamaized.net/hdntl=exp=1764060330~acl=%2f*~id=b83a4d09-5fc8-49ca-b513-db9e10c5b755~data=hdntl,dWlkPTU3MjQwMXxkY2Uuc2t5bnomaXA9NDcuNzIuMTM1LjE1MCZleHA9MTc2NDA2MDM1OSZlaWQ9MjE5MDM0JmNpZD1kY2Uuc2t5bnomb2lkPTMxOCZ0eXBlPUxJVkU~hmac=e35680d9e8ae9a6923522254b9bb3d1d073200960ee7f1404185a4d816ef07c3/dash/live/2093666/219034-311266/manifest-d.mpd
+https://dice-live-oc.akamaized.net/hdntl=exp=1764502389~acl=%2f*~id=2acb15ab-2df7-4d52-a1b6-62fb7b6efe51~data=hdntl,dWlkPTU3MjQwMXxkY2Uuc2t5bnomaXA9MTI0LjI0OC4xNDIuMTMmZXhwPTE3NjQ1MDI0MTkmZWlkPTIxOTAzNCZjaWQ9ZGNlLnNreW56Jm9pZD0zMTgmdHlwZT1MSVZF~hmac=67ffceec0df694a71b571109866a1514392dd9fce1610154f1e39f073349c99f/dash/live/2093676/219034-311900/manifest-d.mpd
 
 #EXTINF:-1 tvg-id="SkySports8" tvg-name="Sky Sports NZ 8 - Premier League FHD" tvg-logo="https://8upload.com/image/67dcf3f6b6e90/sky-sport-8-nz.png?raw=1" group-title="Sky Sports NZ",Sky Sports NZ 8 - Premier League FHD
 #KODIPROP:inputstreamaddon=inputstream.adaptive
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=7a2758575dc04d63acc3573ab594d441:47071dd80de746a38cdc6a4dcde21abc
-https://dice-live-oc.akamaized.net/hdntl=exp=1764060340~acl=%2f*~id=bbf1765d-c38d-4046-911e-16a247f0afbf~data=hdntl,dWlkPTU3MjQwMXxkY2Uuc2t5bnomaXA9NDcuNzIuMTM1LjE1MCZleHA9MTc2NDA2MDM2OSZlaWQ9MjE5MDM1JmNpZD1kY2Uuc2t5bnomb2lkPTMxOCZ0eXBlPUxJVkU~hmac=33583d4fc1a6fa4a5264255d86386aea17922c15527594bd4068ed0201769d34/dash/live/2093667/219035-311267/manifest-d.mpd
+https://dice-live-oc.akamaized.net/hdntl=exp=1764502398~acl=%2f*~id=091ad31b-766c-4472-bf40-352f631aab04~data=hdntl,dWlkPTU3MjQwMXxkY2Uuc2t5bnomaXA9MTI0LjI0OC4xNDIuMTMmZXhwPTE3NjQ1MDI0MjgmZWlkPTIxOTAzNSZjaWQ9ZGNlLnNreW56Jm9pZD0zMTgmdHlwZT1MSVZF~hmac=57cf74cef519dbbd276795bfc2b12e5620ba618958b72a535723240de8007439/dash/live/2093675/219035-311899/manifest-d.mpd
 
 #EXTINF:-1 tvg-id="SkySports9" tvg-name="Sky Sports NZ 9 FHD" tvg-logo="https://8upload.com/image/67dcf3f6a8c72/sky-sport-9-nz.png?raw=1" group-title="Sky Sports NZ",Sky Sports NZ 9 FHD
 #KODIPROP:inputstreamaddon=inputstream.adaptive
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=72002c630e2343849984b5d3ec418162:ae6f8e3ff42a4963ae25686cca56c8e8
-https://dice-live-oc.akamaized.net/hdntl=exp=1764060349~acl=%2f*~id=5e5cc05f-18b6-4cb1-a75b-31cb6a2de3a8~data=hdntl,dWlkPTU3MjQwMXxkY2Uuc2t5bnomaXA9MTI0LjI0OC4xNDIuMTUmZXhwPTE3NjQwNjAzNzkmZWlkPTIxOTAzNiZjaWQ9ZGNlLnNreW56Jm9pZD0zMTgmdHlwZT1MSVZF~hmac=63c750869b06990562e026cbb9884e47debb2bd698cab5593949d3824a09f835/dash/live/2093657/219036-311244/manifest-d.mpd
+https://dice-live-oc.akamaized.net/hdntl=exp=1764502406~acl=%2f*~id=07647985-c12d-4dd8-b28b-881ae6d17612~data=hdntl,dWlkPTU3MjQwMXxkY2Uuc2t5bnomaXA9MTI0LjI0OC4xNDIuMTMmZXhwPTE3NjQ1MDI0MzYmZWlkPTIxOTAzNiZjaWQ9ZGNlLnNreW56Jm9pZD0zMTgmdHlwZT1MSVZF~hmac=22314cb2be048b37873f0d1999441f2229473b3fb4e99f68c0cf82231908253b/dash/live/2093674/219036-311898/manifest-d.mpd
 
 #EXTINF:-1 tvg-id="SkySportsSelect" tvg-name="Sky Sports NZ Select FHD" tvg-logo="https://8upload.com/image/691197f8a6086/Sky_Sport_Select_NZ.png?raw=1" group-title="Sky Sports NZ",Sky Sports NZ Select FHD
 #KODIPROP:inputstreamaddon=inputstream.adaptive
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=01d02c97d1c949f9877acd230dcaa56d:708410b8bf1f4e998931183e8fab5d1e
-https://dice-live-oc.akamaized.net/hdntl=exp=1764060358~acl=%2f*~id=65c915bc-6784-4de9-8d72-6176a0c006b1~data=hdntl,dWlkPTU3MjQwMXxkY2Uuc2t5bnomaXA9MTI0LjI0OC4xNDIuMTUmZXhwPTE3NjQwNjAzODgmZWlkPTIxOTAzNyZjaWQ9ZGNlLnNreW56Jm9pZD0zMTgmdHlwZT1MSVZF~hmac=e9c43a6e1ac8200f2244112db2d03ae26b27b2b34bfff8dca979ed27da420315/dash/live/2093668/219037-311268/manifest-d.mpd
+https://dice-live-oc.akamaized.net/hdntl=exp=1764502415~acl=%2f*~id=b6c099c9-1074-4706-a746-7966dab8a4df~data=hdntl,dWlkPTU3MjQwMXxkY2Uuc2t5bnomaXA9MTI0LjI0OC4xNDIuMTMmZXhwPTE3NjQ1MDI0NDQmZWlkPTIxOTAzNyZjaWQ9ZGNlLnNreW56Jm9pZD0zMTgmdHlwZT1MSVZF~hmac=656d1b98a04e02ee380d1b0fe8ddfe06e2db58f420a82d081586f14560ba5e34/dash/live/2093673/219037-311895/manifest-d.mpd
 
 #EXTINF:-1 tvg-id="SkySportsESPN1" tvg-name="Sky Sports NZ ESPN 1 FHD" tvg-logo="https://espnpressroom.com/us/files/2016/03/RS1521_ESPN_CLR_Pos-scr-1-780x405.jpg" group-title="Sky Sports NZ",Sky Sports NZ ESPN 1 FHD
 #KODIPROP:inputstreamaddon=inputstream.adaptive
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=326058ffe1cd4d3383781b36ca9145d1:99d405d46f114eff96789673e57d0121
-https://dice-live-oc.akamaized.net/hdntl=exp=1764060368~acl=%2f*~id=ad4f2ded-c86b-4b40-830d-a38c4838a7d9~data=hdntl,dWlkPTU3MjQwMXxkY2Uuc2t5bnomaXA9NDcuNzIuMTM1LjE1MCZleHA9MTc2NDA2MDM5OCZlaWQ9MjE5MDM4JmNpZD1kY2Uuc2t5bnomb2lkPTMxOCZ0eXBlPUxJVkU~hmac=5e8bfb2124260e71bd721a6336032c262b7ac595a278a50966a2803ff7b90dda/dash/live/2093713/219038-308445/manifest-d.mpd
+https://dice-live-oc.akamaized.net/hdntl=exp=1764502423~acl=%2f*~id=2033fa84-9f60-4155-94bf-3f9b36590076~data=hdntl,dWlkPTU3MjQwMXxkY2Uuc2t5bnomaXA9MTI0LjI0OC4xNDIuMTMmZXhwPTE3NjQ1MDI0NTMmZWlkPTIxOTAzOCZjaWQ9ZGNlLnNreW56Jm9pZD0zMTgmdHlwZT1MSVZF~hmac=754e2682fe6921c923c9e0c48d5c746d746fab9172acbe9b9c3913f85864b39e/dash/live/2093713/219038-308445/manifest-d.mpd
 
 #EXTINF:-1 tvg-id="SkySportsESPN2" tvg-name="Sky Sports NZ ESPN 2 FHD" tvg-logo="https://espnpressroom.com/us/files/2016/03/RS1521_ESPN_CLR_Pos-scr-1-780x405.jpg" group-title="Sky Sports NZ",Sky Sports NZ ESPN 2 FHD
 #KODIPROP:inputstreamaddon=inputstream.adaptive
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=a01e1e0d5fb145b8b33190588490a27a:bfd9e3b0866e49cbae1bb7f7116451c9
-https://dice-live-oc.akamaized.net/hdntl=exp=1764060378~acl=%2f*~id=537c5a11-ed68-4ef8-adcc-303eba86ce6f~data=hdntl,dWlkPTU3MjQwMXxkY2Uuc2t5bnomaXA9NDcuNzIuMTM1LjE1MCZleHA9MTc2NDA2MDQwNyZlaWQ9MjE5MDM5JmNpZD1kY2Uuc2t5bnomb2lkPTMxOCZ0eXBlPUxJVkU~hmac=85ecc380e30f48d65c9cb351ecb48c8a4fcd92c9991730dd1c52f6da9f649980/dash/live/2093714/219039-308446/manifest-d.mpd
+https://dice-live-oc.akamaized.net/hdntl=exp=1764502432~acl=%2f*~id=fab37729-dd9b-4eb5-9c61-8f7764841a3b~data=hdntl,dWlkPTU3MjQwMXxkY2Uuc2t5bnomaXA9MTI0LjI0OC4xNDIuMTMmZXhwPTE3NjQ1MDI0NjEmZWlkPTIxOTAzOSZjaWQ9ZGNlLnNreW56Jm9pZD0zMTgmdHlwZT1MSVZF~hmac=411d117e20f7e3f3faf45dfb5a3d5b1753dcd68c69ad9a054c6491cab35073b3/dash/live/2093714/219039-308446/manifest-d.mpd
